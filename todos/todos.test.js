@@ -12,3 +12,6 @@ import request from "supertest";
 // Import resetUsersTable function (this resets our database)te
 import { resetUsersTable } from "../db/helpers.js";
 
+test("should pass - skeleton", function () {
+  // code here
+});
