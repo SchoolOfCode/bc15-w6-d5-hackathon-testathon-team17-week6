@@ -1,4 +1,5 @@
 import { pool } from "./index.js";
+import { seedData } from "./seedData.js";
 
 /**
  * @param {{ task: string; completion_date: string }[]} data
@@ -6,7 +7,7 @@ import { pool } from "./index.js";
 
 
 
-export async function resetAllTables(data) {
+export async function resetAllTables(seedData) {
 
   // If you're unsure about DROP TABLE, see: https://www.postgresql.org/docs/current/sql-droptable.html
   // If you're unsure about NOT NULL, see: https://www.postgresql.org/docs/current/ddl-constraints.html#id-1.5.4.6.6
@@ -28,7 +29,7 @@ export async function resetAllTables(data) {
       FROM json_populate_recordset(NULL::todos, $1::JSON)
     )
     RETURNING *;`,
-    [JSON.stringify(data)]
+    [JSON.stringify(seedData)]
   );
 
   return inserted.rows;
