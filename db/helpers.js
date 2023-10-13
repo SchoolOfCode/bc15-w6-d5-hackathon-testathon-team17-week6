@@ -3,7 +3,11 @@ import { pool } from "./index.js";
 /**
  * @param {{ task: string; completion_date: string }[]} data
  */
+
+
+
 export async function resetAllTables(data) {
+
   // If you're unsure about DROP TABLE, see: https://www.postgresql.org/docs/current/sql-droptable.html
   // If you're unsure about NOT NULL, see: https://www.postgresql.org/docs/current/ddl-constraints.html#id-1.5.4.6.6
   await pool.query(`
