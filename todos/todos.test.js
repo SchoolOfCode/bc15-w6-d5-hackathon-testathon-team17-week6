@@ -44,10 +44,10 @@ test("GET /api/todos", async function () {
 test("POST /api/todos", async function () {
   // await the 'resetAllTables' function
   await resetAllTables(seedData);
-   
+
   // Declare a 'requestBody' variable that represents the actual request body
   const requestBody = { task: "Eat chocolate", completionDate: "2023-10-13" };
-  
+
   //    Send a post request to the /api/todos endpoint
   //    call `request` and pass in the Express app as an argument
   //    await the overall expression and assign it to a `response` constant
@@ -57,7 +57,7 @@ test("POST /api/todos", async function () {
     .set("Accept", "application/json");
 
 
-  
+
   // console.log(response.body);
 
   // Declare a variable to store payload within the response body
@@ -100,7 +100,7 @@ test("DELETE /api/todos/2", async function () {
 
   // Declare a variable to store payload within the response body
   const payloadArray = response.body.payload;
-  console.log(response.body);
+  // console.log(response.body);
   // Assertions:
   // Response body	{ success: true, payload: deleted todo object }
   expect(response.body.success).toBe(true);
@@ -127,8 +127,8 @@ test("invalid POST request", async function () {
     .send(requestBody)
     .set("Accept", "application/json");
 
-  // Check the request body 
-  // assert missing / invalid request body 
+  // Check the request body
+  // assert missing / invalid request body
   expect(Object.keys(requestBody).length).toBe(0);
 
 
@@ -138,4 +138,14 @@ test("invalid POST request", async function () {
   const expectedContentType = "application/json";
 
   expect(requestHeaders["Content-Type"]).toBe(expectedContentType);
+
+// Response body { success: false, error: "Please provide a 'task' and 'completionDate'" }
+// Even if two objects have the same properties and values, that's why we are using the 'toEqual' method
+ expect(response.body).toEqual({ success: false, error: "Please provide a 'task' and 'completionDate'" });
+
+// Response status	400
+expect(response.status).toBe(400);
+
+// Response header	Content-Type header should contain application/json
+  expect(response.header["content-type"]).toMatch("application/json");
 })
